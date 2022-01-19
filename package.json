@@ -45,5 +45,6 @@
     "typechain": "^6.0.5",
     "typescript": "^4.5.4",
     "yarn-up": "^1.4.1"
-  }
+  },
+  "version": "0.0.29"
 }

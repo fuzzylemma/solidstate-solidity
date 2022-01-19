@@ -1,0 +1,23 @@
+name: sanity 
+on: [push]
+jobs:
+  sss:
+    runs-on: ubuntu-latest 
+    env:
+      URL: "https://eth-mainnet.alchemyapi.io/v2/${{ secrets.API_KEY_ALCHEMY }}"
+      MNEMONIC: ${{ secrets.MNEMONIC }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '17.0.1'
+      - run: npm i -g yarn
+      - run: npm -v
+      - run: yarn node -v
+      - run: yarn install
+      - run: cd lib && npm i && cd .. && yarn run lerna bootstrap 
+      - run: yarn run hardhat compile 
+        #- run: yarn run hardhat test --network generic
+      - run: yarn run hardhat test 
+      - run: yarn upgrade-dependencies 
+      - run: yarn run hardhat test 
